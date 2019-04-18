@@ -2,18 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') 
+        stage('Build') {
             steps {
-                echo 'Building..'
-                sh 'mvn clean install'
+                sh 'mvn clean install' 
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
-             steps {
-                echo 'Testing..'
-            }
-        
-        stage('Deploy') {
+        }
+    stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying packages' 
             }
         }
     }
